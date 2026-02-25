@@ -1,0 +1,46 @@
+@model IEnumerable<PeopleManager.Models.Person>
+
+@{
+    ViewData["Title"] = "People";
+}
+
+<h1>People</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Person</a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No people have been added yet.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.First().FirstName)</th>
+                <th>@Html.DisplayNameFor(m => m.First().LastName)</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>@person.FirstName</td>
+                    <td>@person.LastName</td>
+                    <td>@person.Email</td>
+                    <td>@person.Age</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@person.Id" class="btn btn-sm btn-info">Details</a>
+                        <a asp-action="Edit" asp-route-id="@person.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@person.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
